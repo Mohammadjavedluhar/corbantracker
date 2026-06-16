@@ -432,8 +432,6 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
 
         </div>
       </div>
-      </div>
-
     </div>
   );
 };
