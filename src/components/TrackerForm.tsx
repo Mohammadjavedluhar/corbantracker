@@ -63,26 +63,42 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       
       {/* Category Tabs */}
-      <div className="tracker-tabs">
+      <div role="tablist" aria-label="Calculator Categories" className="tracker-tabs">
         <button 
+          role="tab"
+          id="tab-transport"
+          aria-selected={activeTab === 'transport'}
+          aria-controls="panel-transport"
           className={`tracker-tab-btn ${activeTab === 'transport' ? 'active' : ''}`}
           onClick={() => setActiveTab('transport')}
         >
           <Car size={16} /> Transport
         </button>
         <button 
+          role="tab"
+          id="tab-energy"
+          aria-selected={activeTab === 'energy'}
+          aria-controls="panel-energy"
           className={`tracker-tab-btn ${activeTab === 'energy' ? 'active' : ''}`}
           onClick={() => setActiveTab('energy')}
         >
           <Flame size={16} /> Home Energy
         </button>
         <button 
+          role="tab"
+          id="tab-diet"
+          aria-selected={activeTab === 'diet'}
+          aria-controls="panel-diet"
           className={`tracker-tab-btn ${activeTab === 'diet' ? 'active' : ''}`}
           onClick={() => setActiveTab('diet')}
         >
           <Apple size={16} /> Diet
         </button>
         <button 
+          role="tab"
+          id="tab-shopping"
+          aria-selected={activeTab === 'shopping'}
+          aria-controls="panel-shopping"
           className={`tracker-tab-btn ${activeTab === 'shopping' ? 'active' : ''}`}
           onClick={() => setActiveTab('shopping')}
         >
@@ -95,17 +111,18 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
         <div className="glass-panel" style={{ minHeight: '380px' }}>
           
           {activeTab === 'transport' && (
-            <div>
+            <div role="tabpanel" id="panel-transport" aria-labelledby="tab-transport">
               <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Car size={20} color="hsl(var(--primary-light))" /> Transportation Settings
               </h3>
               
               <div className="form-group">
-                <label className="form-label">
+                <label htmlFor="carMilesWeekly" className="form-label">
                   <span>Weekly driving distance</span>
                   <span className="form-value">{inputs.transport.carMilesWeekly} miles</span>
                 </label>
                 <input 
+                  id="carMilesWeekly"
                   type="range" 
                   min="0" 
                   max="600" 
@@ -113,15 +130,18 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
                   className="slider-input" 
                   value={inputs.transport.carMilesWeekly} 
                   onChange={(e) => updateTransport('carMilesWeekly', parseInt(e.target.value))}
+                  aria-label="Weekly driving distance in miles"
                 />
               </div>
 
               <div className="form-group">
-                <label className="form-label">Vehicle fuel/engine type</label>
+                <label htmlFor="carType" className="form-label">Vehicle fuel/engine type</label>
                 <select 
+                  id="carType"
                   className="select-input"
                   value={inputs.transport.carType}
                   onChange={(e) => updateTransport('carType', e.target.value)}
+                  aria-label="Vehicle fuel/engine type selection"
                 >
                   <option value="gas">Gasoline / Petrol Car</option>
                   <option value="diesel">Diesel Car</option>
@@ -132,11 +152,12 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
               </div>
 
               <div className="form-group">
-                <label className="form-label">
+                <label htmlFor="publicTransitHoursWeekly" className="form-label">
                   <span>Public transit travel time</span>
                   <span className="form-value">{inputs.transport.publicTransitHoursWeekly} hours/week</span>
                 </label>
                 <input 
+                  id="publicTransitHoursWeekly"
                   type="range" 
                   min="0" 
                   max="40" 
@@ -144,53 +165,59 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
                   className="slider-input" 
                   value={inputs.transport.publicTransitHoursWeekly} 
                   onChange={(e) => updateTransport('publicTransitHoursWeekly', parseInt(e.target.value))}
+                  aria-label="Weekly public transit travel time in hours"
                 />
               </div>
 
               <div className="form-group">
-                <label className="form-label">
+                <label htmlFor="flightsYearlyShort" className="form-label">
                   <span>Short flights yearly (&lt; 3 hrs)</span>
                   <span className="form-value">{inputs.transport.flightsYearlyShort} flights/year</span>
                 </label>
                 <input 
+                  id="flightsYearlyShort"
                   type="range" 
                   min="0" 
                   max="15" 
                   className="slider-input" 
                   value={inputs.transport.flightsYearlyShort} 
                   onChange={(e) => updateTransport('flightsYearlyShort', parseInt(e.target.value))}
+                  aria-label="Yearly short flights (under 3 hours)"
                 />
               </div>
 
               <div className="form-group">
-                <label className="form-label">
+                <label htmlFor="flightsYearlyLong" className="form-label">
                   <span>Long flights yearly (&gt; 3 hrs)</span>
                   <span className="form-value">{inputs.transport.flightsYearlyLong} flights/year</span>
                 </label>
                 <input 
+                  id="flightsYearlyLong"
                   type="range" 
                   min="0" 
                   max="10" 
                   className="slider-input" 
                   value={inputs.transport.flightsYearlyLong} 
                   onChange={(e) => updateTransport('flightsYearlyLong', parseInt(e.target.value))}
+                  aria-label="Yearly long flights (over 3 hours)"
                 />
               </div>
             </div>
           )}
 
           {activeTab === 'energy' && (
-            <div>
+            <div role="tabpanel" id="panel-energy" aria-labelledby="tab-energy">
               <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Flame size={20} color="hsl(var(--primary-light))" /> Home Energy Footprint
               </h3>
 
               <div className="form-group">
-                <label className="form-label">
+                <label htmlFor="electricityKwhMonthly" className="form-label">
                   <span>Monthly electricity usage</span>
                   <span className="form-value">{inputs.energy.electricityKwhMonthly} kWh</span>
                 </label>
                 <input 
+                  id="electricityKwhMonthly"
                   type="range" 
                   min="0" 
                   max="1200" 
@@ -198,6 +225,7 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
                   className="slider-input" 
                   value={inputs.energy.electricityKwhMonthly} 
                   onChange={(e) => updateEnergy('electricityKwhMonthly', parseInt(e.target.value))}
+                  aria-label="Monthly electricity usage in kilowatt hours"
                 />
               </div>
 
@@ -217,26 +245,29 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
               </div>
 
               <div className="form-group">
-                <label className="form-label">
+                <label htmlFor="gasThermMonthly" className="form-label">
                   <span>Monthly natural gas usage</span>
                   <span className="form-value">{inputs.energy.gasThermMonthly} therms</span>
                 </label>
                 <input 
+                  id="gasThermMonthly"
                   type="range" 
                   min="0" 
                   max="150" 
                   className="slider-input" 
                   value={inputs.energy.gasThermMonthly} 
                   onChange={(e) => updateEnergy('gasThermMonthly', parseInt(e.target.value))}
+                  aria-label="Monthly natural gas usage in therms"
                 />
               </div>
 
               <div className="form-group">
-                <label className="form-label">
+                <label htmlFor="waterGallonsDaily" className="form-label">
                   <span>Daily water usage (per person)</span>
                   <span className="form-value">{inputs.energy.waterGallonsDaily} gallons/day</span>
                 </label>
                 <input 
+                  id="waterGallonsDaily"
                   type="range" 
                   min="0" 
                   max="200" 
@@ -244,23 +275,26 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
                   className="slider-input" 
                   value={inputs.energy.waterGallonsDaily} 
                   onChange={(e) => updateEnergy('waterGallonsDaily', parseInt(e.target.value))}
+                  aria-label="Daily water usage in gallons"
                 />
               </div>
             </div>
           )}
 
           {activeTab === 'diet' && (
-            <div>
+            <div role="tabpanel" id="panel-diet" aria-labelledby="tab-diet">
               <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Apple size={20} color="hsl(var(--primary-light))" /> Diet & Nutrition
               </h3>
 
               <div className="form-group">
-                <label className="form-label">General dietary profile</label>
+                <label htmlFor="dietType" className="form-label">General dietary profile</label>
                 <select 
+                  id="dietType"
                   className="select-input"
                   value={inputs.diet.dietType}
                   onChange={(e) => updateDiet('dietType', e.target.value)}
+                  aria-label="General dietary profile selection"
                 >
                   <option value="vegan">Vegan (No animal products)</option>
                   <option value="vegetarian">Vegetarian (No meat/fish, includes dairy/eggs)</option>
@@ -271,11 +305,12 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
               </div>
 
               <div className="form-group">
-                <label className="form-label">
+                <label htmlFor="localFoodRatio" className="form-label">
                   <span>Locally sourced food ratio</span>
                   <span className="form-value">{inputs.diet.localFoodRatio}%</span>
                 </label>
                 <input 
+                  id="localFoodRatio"
                   type="range" 
                   min="0" 
                   max="100" 
@@ -283,6 +318,7 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
                   className="slider-input" 
                   value={inputs.diet.localFoodRatio} 
                   onChange={(e) => updateDiet('localFoodRatio', parseInt(e.target.value))}
+                  aria-label="Locally sourced food ratio percentage"
                 />
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginTop: '0.5rem' }}>
                   Eating local foods reduces shipping logistics, refrigeration, and packing emissions.
@@ -292,47 +328,52 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
           )}
 
           {activeTab === 'shopping' && (
-            <div>
+            <div role="tabpanel" id="panel-shopping" aria-labelledby="tab-shopping">
               <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <ShoppingBag size={20} color="hsl(var(--primary-light))" /> Shopping & Waste Management
               </h3>
 
               <div className="form-group">
-                <label className="form-label">
+                <label htmlFor="clothingMonthly" className="form-label">
                   <span>New clothing items purchased</span>
                   <span className="form-value">{inputs.shopping.clothingMonthly} items/month</span>
                 </label>
                 <input 
+                  id="clothingMonthly"
                   type="range" 
                   min="0" 
                   max="15" 
                   className="slider-input" 
                   value={inputs.shopping.clothingMonthly} 
                   onChange={(e) => updateShopping('clothingMonthly', parseInt(e.target.value))}
+                  aria-label="Monthly clothing items purchased"
                 />
               </div>
 
               <div className="form-group">
-                <label className="form-label">
+                <label htmlFor="electronicsYearly" className="form-label">
                   <span>Personal electronic purchases (phones, laptops, TVs)</span>
                   <span className="form-value">{inputs.shopping.electronicsYearly} devices/year</span>
                 </label>
                 <input 
+                  id="electronicsYearly"
                   type="range" 
                   min="0" 
                   max="8" 
                   className="slider-input" 
                   value={inputs.shopping.electronicsYearly} 
                   onChange={(e) => updateShopping('electronicsYearly', parseInt(e.target.value))}
+                  aria-label="Yearly personal electronic devices purchased"
                 />
               </div>
 
               <div className="form-group">
-                <label className="form-label">
+                <label htmlFor="recycleRate" className="form-label">
                   <span>Diligence in household recycling</span>
                   <span className="form-value">{inputs.shopping.recycleRate}% of household waste</span>
                 </label>
                 <input 
+                  id="recycleRate"
                   type="range" 
                   min="0" 
                   max="100" 
@@ -340,6 +381,7 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
                   className="slider-input" 
                   value={inputs.shopping.recycleRate} 
                   onChange={(e) => updateShopping('recycleRate', parseInt(e.target.value))}
+                  aria-label="Recycling rate percentage of household waste"
                 />
               </div>
             </div>
@@ -389,6 +431,7 @@ export const TrackerForm: React.FC<TrackerFormProps> = ({
           </div>
 
         </div>
+      </div>
       </div>
 
     </div>
